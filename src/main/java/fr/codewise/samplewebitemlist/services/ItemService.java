@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @Service
@@ -26,6 +27,10 @@ public class ItemService {
 
     public void createItem(CreateItemDto dto) {
         itemRepository.save(itemMapper.mapCreateItemDtoToEntity(dto));
+    }
+
+    public void deleteItemById(Long id) {
+        itemRepository.deleteById(id);
     }
 
 }

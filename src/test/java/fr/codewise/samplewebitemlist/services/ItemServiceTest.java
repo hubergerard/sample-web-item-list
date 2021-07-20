@@ -1,4 +1,4 @@
-package fr.codewise.samplewebitemlist;
+package fr.codewise.samplewebitemlist.services;
 
 import fr.codewise.samplewebitemlist.dto.CreateItemDto;
 import fr.codewise.samplewebitemlist.entities.Item;
@@ -27,7 +27,7 @@ public class ItemServiceTest {
     ItemMapper itemMapper;
 
     @Test
-    public void test() {
+    public void test_createItem_inAnyCase_shouldCallRepository() {
         CreateItemDto dto = new CreateItemDto();
         dto.setName("Lait");
         dto.setQuantity("4L");
@@ -42,7 +42,13 @@ public class ItemServiceTest {
         itemService.createItem(dto);
 
         ArgumentCaptor<Item> captor = ArgumentCaptor.forClass(Item.class);
-        verify(itemRepository, atMost(3)).save(any(Item.class));
-        verify(itemMapper).mapCreateItemDtoToEntity(any(CreateItemDto.class));
+        verify(itemRepository).save(any(Item.class));
+    }
+
+    @Test
+    public void test_deleteItemById_inAnyCase_shouldCallRepository() {
+        Long id = 6L;
+        itemService.deleteItemById(id);
+        verify(itemRepository).deleteById(id);
     }
 }
